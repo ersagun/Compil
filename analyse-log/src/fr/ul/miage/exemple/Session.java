@@ -11,7 +11,7 @@ public class Session {
 	/**
 	 * Liste d'evenement
 	 */
-	public static ArrayList<Evenement> list_e= new ArrayList<Evenement>();
+	public ArrayList<Evenement> list_e= new ArrayList<Evenement>();
 	
 	/**
 	 * id de session
@@ -68,12 +68,12 @@ public class Session {
 		this.ip = ip;
 	}
 	
-	public static ArrayList<Evenement> getList_e() {
+	public ArrayList<Evenement> getList_e() {
 		return list_e;
 	}
 
-	public static void setList_e(ArrayList<Evenement> list_e) {
-		Session.list_e = list_e;
+	public void setList_e(ArrayList<Evenement> list_e) {
+		this.list_e = list_e;
 	}
 
 	public int getId_session() {
@@ -91,8 +91,5 @@ public class Session {
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
-
-
-
 
 }

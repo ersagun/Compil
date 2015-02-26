@@ -1,5 +1,6 @@
 /*
- * analyseur lexical du fichier de log
+ * analyseur lexical du analyse-log:
+ * (voir support de cours CUP)
  *
  * auteur : ersagun.yalcintepe@etu.univ-lorraine.fr
  * auteur : julien.remy@etu.univ-lorraine.fr
@@ -25,23 +26,18 @@ DECAL   =   ("+"|"-")[0-9]+
 NUM     =   [0-9]+
 FIN     =   "\n"|"\r\n"
 IP 		=   "([0-9]{1,3}\.){3}[0-9]{1,3}"  
-ACTION  =   "GET*\s[0-9]{3}$"
+ACTION  =   "\"GET*\s[0-9]{3}\""
 TIRET   =   " - - "  
-%%
 
+%%
 
 /* regles */
 
-{IP}   							    { return new Symbol(ParserSym.IP, new 	StringBuffer(yytext()));}
-{TIRET}     						{ return new Symbol(ParserSym.TIRET);}
-{ACTION}         					{ return new Symbol(ParserSym.ACTION);}
-{NUM}       						{ return new Symbol(ParserSym.NUM);}
-
-{SEP}       { ; }
+{IP}   		{ return new Symbol(ParserSym.IP, new String(yytext()));}
+{TIRET}     { return new Symbol(ParserSym.TIRET);}
+{ACTION}    { return new Symbol(ParserSym.ACTION);}
+{NUM}       { return new Symbol(ParserSym.NUM);}
 "\r"		{ return new Symbol(ParserSym.EOF);}
-
-
-/* regles pour la date */
 "Jan"		{ return new Symbol(ParserSym.JAN);}
 "Feb"		{ return new Symbol(ParserSym.FEV);}
 "Mar"		{ return new Symbol(ParserSym.MAR);}
@@ -63,5 +59,28 @@ TIRET   =   " - - "
 {SEP}       { ; }
 {FIN}		{ return new Symbol(ParserSym.EOF);}
 .			{ return null;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

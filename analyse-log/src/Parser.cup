@@ -5,19 +5,57 @@
  * auteur : julien.remy@etu.univ-lorraine.fr
  * (c) 2015
  */ 
+ 
 package fr.ul.miage.exemple.generated;
 import java.lang.StringBuffer;
+import java.util.Date;
+import fr.ul.miage.exemple.Evenement;
+import fr.ul.miage.exemple.Session;
+import fr.ul.miage.exemple.Sessions;
+import java.lang.String;
+import java_cup.runtime.Symbol;
+
+parser code {:
+
+public int getResult() {
+	return action_obj.s.getNbSession();
+}
+
+
+public void syntax_error(Symbol cur_token){}
+public void unrecovered_syntax_error(Symbol cur_token) throws Exception{
+	throw new Exception("Erreur");	
+}
+
+/* pour transmettre le résultat*/
+public long getTime(){
+	return action_obj.ts.getTime();
+ }
+ 
+:}
+
+
+action code {: 
+
+public String ip;
+
+public Sessions s=new Sessions();
+
+public Date ts;
+
+:}
 
 /* la grammaire */
 
-terminal ACTION,TIRET,RC;
+terminal ACTION,TIRET;
 terminal CO, CF, SL, DP;
 terminal JAN, FEV, MAR, AVR, MAI, JUIN, JUIL, AOU, SEP, OCT, NOV, DEC;
 terminal Integer DECAL;
 terminal Integer NUM;
-terminal StringBuffer IP;
+terminal String IP;
 
-non terminal  x,liste_e,e;
+non terminal  x,y,z,liste_e;
+non terminal String e;
 non terminal  Integer mois;
 non terminal  Date timestamp;
 
@@ -25,13 +63,19 @@ start with x;
 
 /*------debut-------*/
 
-x ::= liste_e; 
-liste_e::=e liste_e;
-e::=IP:ip TIRET timestamp ACTION NUM NUM RC;
-/* --- j'ai mis num num rc ds action mais je dois le modifier du coup --*/
-timestamp	::= CO NUM:j SL mois:m SL NUM:a DP NUM:h DP NUM:mn DP NUM:s DECAL:dcl CF {: RESULT = new Date(a.intValue(),m.intValue(),j.intValue(),h+(dcl/100),mn.intValue(),s.intValue());:}
-    		;
-              
+x ::= liste_e
+	; 
+liste_e::=liste_e e
+	;
+z::=e:event {: ip=event;:}
+	;
+
+e::=IP:ip2 TIRET timestamp ACTION NUM NUM {:RESULT=new String(ip2); s.add(ip,ts); :}
+	;
+y ::= timestamp:d {:ts=d;:}
+	;
+timestamp::= CO NUM:j SL mois:m SL NUM:a DP NUM:h DP NUM:mn DP NUM:s DECAL:dcl CF {: RESULT = new Date(a.intValue(),m.intValue(),j.intValue(),h+(dcl/100),mn.intValue(),s.intValue());:}
+	;         
 mois 	::= JAN {:RESULT = new Integer(0);:}
 		| FEV 	{:RESULT = new Integer(1);:}
 		| MAR 	{:RESULT = new Integer(2);:}

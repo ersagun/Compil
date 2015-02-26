@@ -47,7 +47,7 @@ public Date ts;
 
 /* la grammaire */
 
-terminal ACTION,TIRET;
+terminal ACTION,TIRET,SPACE;
 terminal CO, CF, SL, DP;
 terminal JAN, FEV, MAR, AVR, MAI, JUIN, JUIL, AOU, SEP, OCT, NOV, DEC;
 terminal Integer DECAL;
@@ -69,7 +69,7 @@ liste_e::= e liste_e
 	;
 z::=e:event {: ip=event;:}
 	;
-e::=IP:ip2 TIRET timestamp ACTION NUM NUM {:RESULT=new String(ip2); s.add(ip,ts); :}
+e::=IP:ip2 TIRET timestamp ACTION SPACE NUM SPACE NUM {:RESULT=new String(ip2); s.add(ip,ts); :}
 	;
 y ::= timestamp:d {:ts=d;:}
 	;

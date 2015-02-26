@@ -21,7 +21,6 @@ public int getResult() {
 	return action_obj.s.getNbSession();
 }
 
-
 public void syntax_error(Symbol cur_token){}
 public void unrecovered_syntax_error(Symbol cur_token) throws Exception{
 	throw new Exception("Erreur");	
@@ -45,6 +44,7 @@ public Date ts;
 
 :}
 
+
 /* la grammaire */
 
 terminal ACTION,TIRET;
@@ -63,13 +63,12 @@ start with x;
 
 /*------debut-------*/
 
-x ::= liste_e
+x ::= liste_e {::}
 	; 
-liste_e::=liste_e e
+liste_e::= e liste_e
 	;
 z::=e:event {: ip=event;:}
 	;
-
 e::=IP:ip2 TIRET timestamp ACTION NUM NUM {:RESULT=new String(ip2); s.add(ip,ts); :}
 	;
 y ::= timestamp:d {:ts=d;:}
@@ -90,6 +89,5 @@ mois 	::= JAN {:RESULT = new Integer(0);:}
 		| DEC 	{:RESULT = new Integer(11);:}
 		;
 
-       
 /*------fin--------*/
 

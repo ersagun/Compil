@@ -1,5 +1,11 @@
 package fr.ul.miage.exemple;
 import java.util.concurrent.TimeUnit;
+
+/**
+ * Classe compare de long
+ * @author Ersagun
+ *
+ */
 public class TpsExec {
 		
 	public static long getTime(long tps1,long tps2)

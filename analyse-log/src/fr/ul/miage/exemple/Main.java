@@ -1,6 +1,5 @@
 /**
- * Classe qui appelle l
- * La lecture du flux de carractère se fait sur l'entréee standard
+ * La lecture du flux de carractère se fait en lecture de fichier
  */
 package fr.ul.miage.exemple;
 
@@ -17,10 +16,6 @@ import fr.ul.miage.exemple.generated.Yylex;
  */
 public class Main {
 
-	/**
-	 * @param args
-	 */
-	
 	public static void main(String[] args) {
 		System.out.println("ta mere la cafetiere");
 		File f = new File("./exemple.log");

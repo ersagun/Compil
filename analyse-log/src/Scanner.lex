@@ -1,11 +1,6 @@
-/*
- * analyseur lexical du analyse-log:
- * (voir support de cours CUP)
- *
- * auteur : ersagun.yalcintepe@etu.univ-lorraine.fr
- * auteur : julien.remy@etu.univ-lorraine.fr
- * (c) 2015
- */
+/* auteur : ersagun.yalcintepe@etu.univ-lorraine.fr - julien.remy@etu.univ-lorraine.fr */
+/* (c) 2015 */
+
 
 package fr.ul.miage.exemple.generated;
 import java_cup.runtime.Symbol;
@@ -59,28 +54,3 @@ TIRET   =   " - - "
 {SEP}       { ; }
 {FIN}		{ return new Symbol(ParserSym.EOF);}
 .			{ return null;}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

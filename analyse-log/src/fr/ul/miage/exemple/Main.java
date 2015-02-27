@@ -17,7 +17,6 @@ import fr.ul.miage.exemple.generated.Yylex;
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.println("ta mere la cafetiere");
 		File f = new File("./exemple.log");
 		  FileInputStream fis = null;
 		try {
@@ -29,6 +28,7 @@ public class Main {
 		  ParserCup parser = new ParserCup(new Yylex(fis));
 		try {
 			parser.parse();
+			parser.getResult();
 		} catch (Exception e) {
 			System.err.println("...Erreur de syntaxe ");
 			System.exit(1);

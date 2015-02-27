@@ -16,8 +16,8 @@ import java.lang.StringBuffer;
 
 
 /* macros */
-SEPARATEUR     =   [ \t]
-SPACE   =   [ \s]
+SEPARATEUR     = " "
+END  	=	[\t]
 DECAL   =   ("+"|"-")[0-9]+
 NUM     =   [0-9]+
 FIN     =   \n"|"\r\n
@@ -30,8 +30,8 @@ TIRET   =   " - - "
 /* regles */
 
 {IP}   		{ System.out.print(yytext());return new Symbol(ParserSym.IP, new String(yytext()));}
-{TIRET}     { System.out.print(yytext());return new Symbol(ParserSym.TIRET);}
 {ACTION}    { System.out.print(yytext());return new Symbol(ParserSym.ACTION);}
+{TIRET}     { System.out.print(yytext());return new Symbol(ParserSym.TIRET);}
 {NUM}       { System.out.print(yytext());return new Symbol(ParserSym.NUM);}
 "\r"		{ System.out.print(yytext());return new Symbol(ParserSym.EOF);}
 "Jan"		{ System.out.print(yytext());return new Symbol(ParserSym.JAN);}
@@ -52,6 +52,7 @@ TIRET   =   " - - "
 "]"         { System.out.print(yytext());return new Symbol(ParserSym.CF);}
 {DECAL}     { System.out.print(yytext());return new Symbol(ParserSym.DECAL,new Integer(yytext()));}
 {NUM}       { System.out.print(yytext());return new Symbol(ParserSym.NUM, new Integer(yytext()));}
-{SEPARATEUR}       { ; }
+{END}  		{System.out.println("");}
+{SEPARATEUR}      {System.out.print(yytext());;}
 {FIN}		{ return new Symbol(ParserSym.EOF);}
 .			{ return null;}

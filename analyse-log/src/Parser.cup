@@ -45,33 +45,32 @@ public Date ts;
 
 /* la grammaire */
 
-terminal ACTION,TIRET,SEPARATEUR,END;
+terminal ACTION,TIRET,SEPARATEUR,FIN;
 terminal CO, CF, SL, DP;
 terminal JAN, FEV, MAR, AVR, MAI, JUIN, JUIL, AOU, SEP, OCT, NOV, DEC;
 terminal Integer DECAL;
 terminal Integer NUM;
 terminal String IP;
 
-non terminal  x,y,z,liste_e;
+non terminal  y,log;
 non terminal String e;
 non terminal  Integer mois;
 non terminal  Date timestamp;
 
-start with x;
+start with log;
 
 /*------debut-------*/
 
-x ::= liste_e {::}
-	; 
-liste_e::=z liste_e
+log ::= log e
+	| /* vide */
 	;
-z::=e:event {: ip=event;:}
+
+e::=IP:ip2 TIRET timestamp:ts ACTION NUM NUM FIN  {: s.add(ip2,ts); :}
 	;
-e::=IP:ip2 TIRET timestamp ACTION SEPARATEUR NUM SEPARATEUR NUM END {:RESULT=new String(ip2); s.add(ip,ts); :}
-	;
+
 y ::= timestamp:d {:ts=d;:}
 	;
-timestamp::= CO NUM:j SL mois:m SL NUM:a DP NUM:h DP NUM:mn DP NUM:s SEPARATEUR:ss DECAL:dcl CF {: RESULT = new Date(a.intValue(),m.intValue(),j.intValue(),h+(dcl/100),mn.intValue(),s.intValue());:}
+timestamp::= CO NUM:j SL mois:m SL NUM:a DP NUM:h DP NUM:mn DP NUM:s DECAL:dcl CF {: RESULT = new Date(a.intValue(),m.intValue(),j.intValue(),h+(dcl/100),mn.intValue(),s.intValue());:}
 	;         
 mois 	::= JAN {:RESULT = new Integer(0);:}
 		| FEV 	{:RESULT = new Integer(1);:}

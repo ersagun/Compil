@@ -13,46 +13,45 @@ import java.lang.StringBuffer;
 %public
 %cupsym ParserSym
 %cup
-
+/*%debug*/
 
 /* macros */
-SEPARATEUR     = " "
-END  	=	[\t]
-DECAL   =   ("+"|"-")[0-9]+
+SEPARATEUR     = [ \t]+
 NUM     =   [0-9]+
-FIN     =   \n"|"\r\n
+DECAL   =   ("+"|"-")[0-9]{4}
+FIN     =   "\n"|"\r\n"
 IP 		=   ([0-9]{1,3}\.){3}[0-9]{1,3}  
-ACTION  =   \".*\"
+ACTION  =   "\""([^\"]|"\\\"")*"\""
 TIRET   =   " - - "  
 
 %%
 
 /* regles */
 
-{IP}   		{ System.out.print(yytext());return new Symbol(ParserSym.IP, new String(yytext()));}
-{ACTION}    { System.out.print(yytext());return new Symbol(ParserSym.ACTION);}
-{TIRET}     { System.out.print(yytext());return new Symbol(ParserSym.TIRET);}
-{NUM}       { System.out.print(yytext());return new Symbol(ParserSym.NUM);}
-"\r"		{ System.out.print(yytext());return new Symbol(ParserSym.EOF);}
-"Jan"		{ System.out.print(yytext());return new Symbol(ParserSym.JAN);}
-"Feb"		{ System.out.print(yytext());return new Symbol(ParserSym.FEV);}
-"Mar"		{ System.out.print(yytext());return new Symbol(ParserSym.MAR);}
-"Apr"		{ System.out.print(yytext());return new Symbol(ParserSym.AVR);}
-"May"		{ System.out.print(yytext());return new Symbol(ParserSym.MAI);}
-"Jun"		{ System.out.print(yytext());return new Symbol(ParserSym.JUIN);}
-"Jul"		{ System.out.print(yytext());return new Symbol(ParserSym.JUIL);}
-"Aug"		{ System.out.print(yytext());return new Symbol(ParserSym.AOU);}
-"Sep"		{ System.out.print(yytext());return new Symbol(ParserSym.SEP);}
-"Oct"		{ System.out.print(yytext());return new Symbol(ParserSym.OCT);}
-"Nov"		{ System.out.print(yytext());return new Symbol(ParserSym.NOV);}
-"Dec"		{ System.out.print(yytext());return new Symbol(ParserSym.DEC);}
-":"         { System.out.print(yytext());return new Symbol(ParserSym.DP);}
-"/"         { System.out.print(yytext());return new Symbol(ParserSym.SL);}
-"["         { System.out.print(yytext());return new Symbol(ParserSym.CO);}
-"]"         { System.out.print(yytext());return new Symbol(ParserSym.CF);}
-{DECAL}     { System.out.print(yytext());return new Symbol(ParserSym.DECAL,new Integer(yytext()));}
-{NUM}       { System.out.print(yytext());return new Symbol(ParserSym.NUM, new Integer(yytext()));}
-{END}  		{System.out.println("");}
-{SEPARATEUR}      {System.out.print(yytext());;}
-{FIN}		{ return new Symbol(ParserSym.EOF);}
+
+{IP}   		{ return new Symbol(ParserSym.IP, new String(yytext()));}
+{ACTION}    { return new Symbol(ParserSym.ACTION);}
+{TIRET}     { return new Symbol(ParserSym.TIRET);}
+"\r"		{ return new Symbol(ParserSym.EOF);}
+"Jan"		{ return new Symbol(ParserSym.JAN);}
+"Feb"		{ return new Symbol(ParserSym.FEV);}
+"Mar"		{ return new Symbol(ParserSym.MAR);}
+"Apr"		{ return new Symbol(ParserSym.AVR);}
+"May"		{ return new Symbol(ParserSym.MAI);}
+"Jun"		{ return new Symbol(ParserSym.JUIN);}
+"Jul"		{ return new Symbol(ParserSym.JUIL);}
+"Aug"		{ return new Symbol(ParserSym.AOU);}
+"Sep"		{ return new Symbol(ParserSym.SEP);}
+"Oct"		{ return new Symbol(ParserSym.OCT);}
+"Nov"		{ return new Symbol(ParserSym.NOV);}
+"Dec"		{ return new Symbol(ParserSym.DEC);}
+":"         { return new Symbol(ParserSym.DP);}
+"/"         { return new Symbol(ParserSym.SL);}
+"["         { return new Symbol(ParserSym.CO);}
+"]"         { return new Symbol(ParserSym.CF);}
+{DECAL}     { return new Symbol(ParserSym.DECAL,new Integer(yytext()));}
+{NUM}       { return new Symbol(ParserSym.NUM, new Integer(yytext()));}
+/*{END}  		{System.out.println("");}*/
+{SEPARATEUR}      {;}
+{FIN}		{ return new Symbol(ParserSym.FIN);}
 .			{ return null;}

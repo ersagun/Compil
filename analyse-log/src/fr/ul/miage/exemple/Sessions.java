@@ -10,6 +10,10 @@ public class Sessions {
 	public static int id_session=0;
 
 	public ArrayList<Session> list;
+	
+	public Sessions(){
+		this.list=new ArrayList<Session>();
+	}
 
 	public void add(String ip, Date timestamp) {
 		int sess_id=-1;
@@ -27,6 +31,7 @@ public class Sessions {
 		}
 		if (sess_id==-1) {
 			//on crée un nouvelle session si l'ip de l'evenement n'est pas dans les temps d'une session ou n'appartient a aucune session
+			System.out.println(ip+","+timestamp);
 			list.add(new Session(ip,id_session++));
 		}
 	}

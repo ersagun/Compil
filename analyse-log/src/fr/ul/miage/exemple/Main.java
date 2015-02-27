@@ -27,13 +27,15 @@ public class Main {
 		}
 		  ParserCup parser = new ParserCup(new Yylex(fis));
 		try {
+			System.out.println("Calcul de statistique a commencé, veuillez patienter s'il vous plait :");
 			parser.parse();
-			parser.getResult();
+			System.out.println("La calcul est fini.");
 		} catch (Exception e) {
 			System.err.println("...Erreur de syntaxe ");
 			System.exit(1);
 			System.exit(1);
 		}
+		System.out.println(parser.getResult());
 	}
 	
 	

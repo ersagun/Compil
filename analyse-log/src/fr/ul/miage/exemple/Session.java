@@ -32,6 +32,7 @@ public class Session {
 	public long getFirst() {
 		return (list_e.get(0).date).getTime();
 	}
+
 	/**
 	 * derniere evenement
 	 * @return

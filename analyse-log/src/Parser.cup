@@ -6,6 +6,7 @@
  * (c) 2015
  */ 
  
+
 package fr.ul.miage.exemple.generated;
 import fr.ul.miage.exemple.Sessions;
 import java.util.Date;

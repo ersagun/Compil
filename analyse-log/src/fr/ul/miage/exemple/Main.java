@@ -35,7 +35,7 @@ public class Main {
 			System.exit(1);
 			System.exit(1);
 		}
-		System.out.println(parser.getResult());
+		parser.getResult();
 	}
 	
 	
